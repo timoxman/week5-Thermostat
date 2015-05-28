@@ -1,15 +1,41 @@
 <html>
-<script type="text/javascript">
 
-webthermostat = new Thermostat();
+<script type="text/javascript" src="src/Thermostat.js"></script>
+
+  <H2> Tim's thermostat </H2>
+  <div>
+    The temperature is <span id="temp"> 999 </span> &deg;C <br>
+  </div>
+  <input id="down"  type="button" value="down"  onclick="webClick('down');" />
+  <input id="up"    type="button" value="up"    onclick="webClick('up');" />
+  <input id="reset" type="button" value="reset" onclick="webClick('reset');" /> <br>
+  <input id="powerSave" type="checkbox" onclick="webPowerSave();" checked> Power save
+
+<script>
+
+window.onload = function WindowLoad(event) {
+    webthermostat = new Thermostat();
+    updatePage();
+    document.getElementById('powerSave').checked = webthermostat.powerSave
+};
+
+
+function updatePage(){
+  document.getElementById("temp").innerHTML = webthermostat.temperature;
+}
+
+function webClick(button){
+  if (button === "down")  webthermostat.down();
+  if (button === "up")    webthermostat.up();
+  if (button === "reset") webthermostat.reset();
+  updatePage();
+}
+
+function webPowerSave(){
+  var valPS = document.getElementById('powerSave').checked;
+  webthermostat.powerSaveX(valPS);
+}
 
 </script>
-
-
-<button type="button">Up!</button>
-<button type="button">Down!</button>
-<input id="up" type="button" value="up" onclick="webthermostat.up();" />
-
-
 
 </html>

@@ -4,6 +4,8 @@ function Thermostat() {
   this.powerSave = true;
 };
 
+// the functions in this module are tested using Jasmine, the testing is contained within thermostatSpec.js
+
 Thermostat.prototype.up = function(){
   this.temperature++;
   if ((this.temperature > 25) && this.powerSave ) this.temperature = 25;
