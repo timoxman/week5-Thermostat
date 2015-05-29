@@ -41,6 +41,7 @@ $(document).ready(function() {
   $("input#reset").click(function() {
     webthermostat.reset();
     updatePage();
+    getWeather();
     // $('#sentence').css("color","red");
 
 
@@ -58,9 +59,34 @@ $(document).ready(function() {
     $('#sentence').css("color",colours[webthermostat.temperature]);
   };
 
-//initialise
+  function getWeather(){
+    // var success = {}
+    // $.get({
+    //   "api.openweathermap.org/data/2.5/weather?q=London,uk",
+    //   function(data) {
+    //     alert("success");
+    //   }
+    // });
+
+    // var sausage = $.get( "http://api.openweathermap.org/data/2.5/weather?q=London,uk", function( data ) {
+    $.get( "http://api.openweathermap.org/data/2.5/weather?q=London,UK", function( data ) {
+        handleWeather(data)
+      });
+
+//    can't do this because at this point in time the above asyncronous code will not have completed
+//    alert (data.weather[0].description);
+
+  }
+
+  function handleWeather(weather) {
+  //  alert(weather.weather[0].description)
+    $("#weather").text(weather.weather[0].description);
+  }
+
+//initialise - set temp and powersave checkbox
   updatePage();
   $('#powerSave').prop("checked", webthermostat.powerSave);
+
 
 });
 
